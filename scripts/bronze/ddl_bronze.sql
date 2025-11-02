@@ -5,7 +5,11 @@
 	This script creates table in the bronze layer schema, dropping existing table if it already exists.
 
 WARNING:
-	Columns with name 'Free_cancel_till', 'Due_date', 'Payment_date' are NVARCHAR data type, need to cast it late. 
+	- Columns with name 'Free_cancel_till', 'Due_date', 'Payment_date' are NVARCHAR data type, need to cast it late.
+	- Need to correct next columns data types directly in csv filer before loading:
+		* Booked 
+		* C_in
+		* C_out
  */
  
  IF OBJECT_ID ('bronz.ito', 'U') IS NOT NULL
