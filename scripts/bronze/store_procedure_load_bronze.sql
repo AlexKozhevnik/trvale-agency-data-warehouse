@@ -7,11 +7,10 @@ Script Puprose:
 	- Truncate the bronze table before loading data.
 	- Uses the BULK INSERT command to load data from csv to bronze layer.
 
-	Parameters:
-	- Be shure that data types in columns Booked, C_in and C_out is in correct DATA format. 
+How to execute: EXEC bronze.load_bronze
 */
 
-CREATE OR ALTER PROCEDURE bronz.load_bronz AS
+CREATE OR ALTER PROCEDURE bronze.load_bronze AS
 BEGIN
 	DECLARE @start_time DATETIME, @end_time DATETIME;
 	BEGIN TRY
@@ -20,20 +19,24 @@ BEGIN
 		PRINT '=========================================';
 		
 		SET @start_time = GETDATE();
-		PRINT '>> Truncating Table: bronz.ito';
-		TRUNCATE TABLE bronz.ito; 
+		PRINT '>> Truncating Table: bronze.ito';
+		TRUNCATE TABLE bronze.ito; 
 	
-		PRINT '>> Inserting Data Into: bronz.ito';
-		BULK INSERT bronz.ito
-		FROM 'C:\Users\PC\OneDrive\Plocha\CK_Astra_Data_Warehouse_project\ito_until_zari.csv'
+		PRINT '>> Inserting Data Into: bronze.ito';
+		BULK INSERT bronze.ito
+		FROM 'C:\Users\PC\astra_project\ito_09_cleaned_safe.csv'
 		WITH (
+			FORMAT = 'CSV',
 			FIRSTROW = 2,
 			FIELDTERMINATOR = ';',
+			ROWTERMINATOR = '0x0D0A',
 			CODEPAGE = '65001',
+			ERRORFILE = 'C:\Users\PC\astra_project\temp_errors.txt',
 			TABLOCK
 		);
 		SET @end_time = GETDATE();
 		PRINT '-- Load Duration: ' + CAST(DATEDIFF(second, @start_time, @end_time) AS NVARCHAR) + ' seconds';
+		PRINT '-- SUCCESS: Data loaded into bronze.ito';
 	END TRY
 	BEGIN CATCH
 		PRINT '--------------------------------------------------'
