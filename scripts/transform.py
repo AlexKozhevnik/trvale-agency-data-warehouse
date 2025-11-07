@@ -1,4 +1,4 @@
-# ITO Excel to CSV Preprocessor (`ito_cleaner.py`)
+# ITO Excel to CSV Preprocessor (`load.py`)
 
 ## Overview
 This Python script reads an Excel file (`ito_09.xlsx`) containing booking data from the ITO system, renames columns to a standardized English naming convention, and exports the cleaned data to a UTF-8 encoded CSV file with semicolon (`;`) delimiters.
@@ -8,34 +8,6 @@ The output CSV is optimized for bulk loading into **SQL Server** using `BULK INS
 - Semicolon field separation
 - Minimal quoting (`QUOTE_MINIMAL`)
 - Windows line endings (`\r\n`)
-
----
-
-## Purpose
-Used in the **ETL pipeline (Bronze Layer)** to:
-- Extract raw data from Excel
-- Transform column names for consistency
-- Load into `bronze.ito` table via `BULK INSERT`
-
----
-
-## Input
-- **File**: `ito_09.xlsx`
-- **Path**: `C:\Users\PC\astra_project\ito_09.xlsx`
-- **Sheet**: `List1`
-- **Engine**: `openpyxl`
-
----
-
-## Output
-- **File**: `ito_09_cleaned_safe.csv`
-- **Path**: `C:\Users\PC\astra_project\ito_09_cleaned_safe.csv`
-- **Format**:
-  - Delimiter: `;`
-  - Encoding: `UTF-8`
-  - Quoting: `QUOTE_MINIMAL`
-  - Index: excluded
-  - Line endings: Windows (`\r\n`)
 
 ---
 
