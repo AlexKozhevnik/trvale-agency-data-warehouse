@@ -65,7 +65,9 @@ if "tourists" in ito_final_df.columns:
     ito_final_df["tourists"] = (
         ito_final_df["tourists"]
         .astype(str)
-        .apply(lambda x: unidecode(x))
+        .str.strip()
+        .str.replace(r'\s+', ' ', regex=True)
+        .apply(unidecode)
     )
 
 # --- Save cleaned CSV ---
