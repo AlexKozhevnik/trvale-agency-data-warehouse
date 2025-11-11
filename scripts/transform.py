@@ -13,9 +13,10 @@ The output CSV is optimized for bulk loading into **SQL Server** using `BULK INS
 
 import pandas as pd
 import csv
+from unidecode import unidecode
 
-file_xlsx = r"C:\Users\PC\astra_project\ito_09.xlsx"
-file_csv_safe = r"C:\Users\PC\astra_project\ito_09_cleaned_safe.csv"
+file_xlsx = r"C:\Users\PC\astra_project\new_files\ito_09.xlsx"
+file_csv_safe = r"C:\Users\PC\astra_project\ready_file\ito_cleaned.csv"
 
 ito_df = pd.read_excel(file_xlsx, sheet_name="List1", engine="openpyxl")
 
@@ -59,5 +60,15 @@ ito_final_df = ito_df.rename(columns={
     "Profit":"profit"
 })
 
-# save as CSV; sep=';' for compatibility with the BULK INSERT
+# --- Clean 'tourists' column ---
+if "tourists" in ito_final_df.columns:
+    ito_final_df["tourists"] = (
+        ito_final_df["tourists"]
+        .astype(str)
+        .apply(lambda x: unidecode(x))
+    )
+
+# --- Save cleaned CSV ---
 ito_final_df.to_csv(file_csv_safe, index=False, sep=';', encoding='utf-8', quoting=csv.QUOTE_MINIMAL)
+
+print("File cleaned and saved successfully:", file_csv_safe)
