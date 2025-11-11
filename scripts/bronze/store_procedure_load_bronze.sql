@@ -24,14 +24,14 @@ BEGIN
 	
 		PRINT '>> Inserting Data Into: bronze.ito';
 		BULK INSERT bronze.ito
-		FROM 'C:\Users\PC\astra_project\ito_09_cleaned_safe.csv'
+		FROM 'C:\YOUR_FILE_PATH'
 		WITH (
 			FORMAT = 'CSV',
 			FIRSTROW = 2,
 			FIELDTERMINATOR = ';',
 			ROWTERMINATOR = '0x0D0A',
 			CODEPAGE = '65001',
-			ERRORFILE = 'C:\Users\PC\astra_project\temp_errors.txt',
+			ERRORFILE = 'C:\YOUR_FILE_PATH',
 			TABLOCK
 		);
 		SET @end_time = GETDATE();
