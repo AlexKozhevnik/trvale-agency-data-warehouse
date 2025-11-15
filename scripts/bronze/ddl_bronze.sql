@@ -45,3 +45,20 @@
 	payment_type NVARCHAR(50),
 	profit DECIMAL(19, 4)
  );
+
+ /*
+DDL script: Create logs table
+
+ Script Puprose:
+	This script creates table in the bronze layer schema, dropping existing table if it already exists.
+ */
+ IF OBJECT_ID ('bronze.ito_load_logs', 'U') IS NOT NULL
+	DROP TABLE bronze.ito_load_logs;
+ CREATE TABLE bronze.ito_load_logs (
+	load_number INT IDENTITY(1,1) PRIMARY KEY,
+	source NVARCHAR(25) NOT NULL,
+	load_date DATETIME2 NOT NULL DEFAULT GETDATE(),
+	number_of_rows INT NOT NULL,
+	duration_seconds INT NULL,
+	status NVARCHAR(20) DEFAULT 'SUCCESS'
+ );
