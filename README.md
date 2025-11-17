@@ -23,8 +23,6 @@ This project establishes a comprehensive **Data Warehouse (DWH)** built on booki
 
 # Data Flow Diagram & Star Schema
 
-![Data Flow Diagram](docs/Project Data Flow & Star Schema.png)
-
 The DWH uses a **layered architecture** orchestrated by a single stored procedure ensuring sequential execution, atomicity, and data integrity.
 
 ### Orchestration and Transaction Control
