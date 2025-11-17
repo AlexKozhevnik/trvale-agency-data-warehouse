@@ -21,23 +21,6 @@ This project establishes a comprehensive **Data Warehouse (DWH)** built on booki
 
 ## 🏛️ Architecture and Data Flow (ETL Pipeline)
 
-### 📊 Data Flow Diagram (DWH Pipeline)
-
-```mermaid
-graph TD
-    A[InTour Office (XLSX)] -->|Raw Export| B[Python Preprocessing (load.py)]
-    B -->|Cleaned UTF-8 CSV| C[Bronze Layer]
-
-    C[Bronze Layer
-Raw Landing Zone] -->|BULK INSERT| D[Silver Layer]
-
-    D[Silver Layer
-Standardization, Cleansing, Enrichment] -->|Transformed Data| E[Gold Layer]
-
-    E[Gold Layer
-Star Schema (fact_bookings + dim_*)] --> F[Power BI Dashboards]
-```
-
 The DWH uses a **layered architecture** orchestrated by a single stored procedure ensuring sequential execution, atomicity, and data integrity.
 
 ### Orchestration and Transaction Control
